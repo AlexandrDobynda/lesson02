@@ -3,15 +3,15 @@
 
 $text ="Lorem ipsum                                         ";
 
-if (strlen($text) > 50) {
+iif (strlen($text) > 50) {
 	$text = substr($text, 0, 47);
-	# code...
 	if ($text[46] != ' ') {
-		$text += "...";	
+		$text = $text . "...";	
 
 	} else {
 // Учитывает случай множественных пробелов:
 		for ($i=strlen($text) - 1; $i >= 0 ; $i--) { 
+			
 				if ($text[$i] != ' ') {
 					$text = substr($text, 0, $i + 1) . "...";
 					break;
