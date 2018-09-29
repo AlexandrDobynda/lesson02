@@ -52,14 +52,14 @@ class Student extends Human
 	private $marks = [];
 // ______________________________________
 
-	public function setOchnoe($course) 
+	public function setOchnoe($course = false) 
 	{
-		$this->course = $course;
+		$course ? $this->course = $course : $this->course;
 		$this->type = self::TYPE_OCHN;
 	}
-	public function setZaochnoe($course) 
+	public function setZaochnoe($course = false) 
 	{
-		$this->course = $course;
+		$course ? $this->course = $course : $this->course;
 		$this->type = self::TYPE_ZAOCHN;
 	}
 
