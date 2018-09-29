@@ -85,6 +85,13 @@ $student1->giveMark(2);
 $student1->giveMark(3);
 $student1->giveMark(4);
 
+
+// Почему работает? У родителя private \/
+$student1->age = 2;
+// ---------------------
+
+
+
 echo $student1->getFullName() . '<br>';
 echo $student1->getType() . '<br>';
 echo $student1->getCourse(). '<br>';
