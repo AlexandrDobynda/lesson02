@@ -115,7 +115,7 @@ class Student extends Human
 class Employee extends Human
 {	
 	protected static $count = 0;
-	protected static $employeeCount = 0;
+	protected static $onlyEmployeeCount = 0;
 
 	private $salary;
 	private $wageList = [];
@@ -123,6 +123,7 @@ class Employee extends Human
 	public function __construct($lastName, $salary = false)
 	{
 		self::$count++;
+		static::$onlyEmployeeCount++;
 
 		parent::__construct('', $lastName);
 		$this->salary = $salary;
@@ -163,8 +164,9 @@ class Employee extends Human
 
 	public function count()
 	{
-		echo 'Employee count: ' . self::$count . '<br>';
-		echo 'Employee count/all human: ' . self::$count . '/' . parent::$count  .  '<br>';
+		echo 'Employee count: ' . self::$onlyEmployeeCount . '<br>';
+		echo 'Employee count/all human: ' . self::$onlyEmployeeCount . '/' . parent::$count  .  '<br>';
+		echo 'Employee count/all employee: ' . self::$onlyEmployeeCount . '/' . self::$count  .  '<br>';
 	}
 }
 /**
@@ -173,11 +175,13 @@ class Employee extends Human
 class Manager extends Employee
 {
 	protected static $count = 0;
+	protected static $onlyEmployeeCount = 0;
 
 	private $listOfEmloyees = [];
 	
 	public function __construct( $lastName)
 	{
+		static::$onlyEmployeeCount++;
 		self::$count++;
 
 		parent::__construct($lastName);
