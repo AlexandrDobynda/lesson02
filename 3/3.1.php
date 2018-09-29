@@ -80,7 +80,12 @@ class Student extends Human
 
 	public function getMarks()
 	{
-		print_r( $this->marks);
+		echo "Marks of " . $this->getFullName() . ': <br>';
+		
+		foreach ($this->marks as $value) 
+		{
+			echo  $value . ', ';
+		}
 	}
 }
 /**
