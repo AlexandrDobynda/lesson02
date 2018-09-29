@@ -98,7 +98,7 @@ class Employee extends Human
 	
 	public function __construct($lastName, $salary)
 	{
-		parent::__construct($lastName);
+		parent::__construct('', $lastName);
 		$this->salary = $salary;
 	}
 
