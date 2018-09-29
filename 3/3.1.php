@@ -13,7 +13,20 @@ class Human
 		$this->lastName = $lastName;
 		$this->age = $age;
 	}
-
+//===========================
+	public function setFirstName($firstName)
+	{
+		$this->firstName = $firstName;
+	}
+	public function setLastName($lastName)
+	{
+		$this->lastName = $lastName;
+	}
+	public function setAge($age)
+	{
+		$this->age = $age;
+	}
+// ===========================
 	public function __get($name)
 	{	
 		return $this->$name;
@@ -116,6 +129,7 @@ class Employee extends Human
 //-------------------------------------------
 
 $employee1 = new Employee('Sidorov', 2500);
+$employee1->setFirstName('Egor');
 $employee1->giveSalary('25-april-1992', 2000);
 $employee1->giveSalary('25-april-1993', 2200);
 $employee1->giveSalary('25-april-1994');
