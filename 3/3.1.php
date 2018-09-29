@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Human
 {
@@ -7,9 +7,8 @@ class Human
 	private $lastName;
 	private $age; 
 
-	public function __construct ($firstName, $lastName, $age)
+	public function __construct ($firstName = '', $lastName = '', $age = '')
 	{
-
 		$this->firstName = $firstName;
 		$this->lastName = $lastName;
 		$this->age = $age;
@@ -20,42 +19,45 @@ class Human
 		return $this->$name;
 	}
 
-
 	public function getFullName()
 	{
 		return $this->firstName . ' ' . $this->lastName;
 	}
 }
-
+/**
+ * STUDENT
+ */
 class Student extends Human
 {
 	private static $count = 0;
 
-	// const TYPE_OCHN = 1;
-	// const TYPE_ZAOCHN = 2;
+	const TYPE_OCHN = 1;
+	const TYPE_ZAOCHN = 2;
 
-	private $course;
-	private $type;
+	private $type = self::TYPE_OCHN;
+	private $course = 1;
 	private $marks = [];
-	// private $type = self:: TYPE_OCHN;
+// ______________________________________
 
-	public function setCourse($course)
+	public function setOchnoe($course) 
 	{
 		$this->course = $course;
+		$this->type = self::TYPE_OCHN;
+	}
+	public function setZaochnoe($course) 
+	{
+		$this->course = $course;
+		$this->type = self::TYPE_ZAOCHN;
+	}
+
+	public function getType()
+	{
+		return $this->type == 1 ? 'Ochnoe' : 'Zaochnoe';
 	}
 
 	public function getCourse()
 	{
 		return $this->course;
-	}
-
-	public function setType($type){
-		$this->type = $type;
-	}
-
-	public function getType()
-	{
-		return $this->type;
 	}
 
 	public function giveMark($value)
@@ -68,29 +70,66 @@ class Student extends Human
 		print_r( $this->marks);
 	}
 }
+/**
+ * EMPLOYEE
+ */
+class Employee extends Human
+{	
+	private $salary;
+	private $wageList = [];
+	
+	public function __construct($lastName, $salary)
+	{
+		parent::__construct($lastName);
+		$this->salary = $salary;
+	}
+
+	public function setSalary($salary)
+	{
+		$this->salary = $salary;
+	}
+
+	public function giveSalary($date, $value = false)
+	{
+		if ($value) 
+		{
+			$this->wageList[$date] = $value;
+		} else 
+		{
+			$this->wageList[$date] = $this->salary;
+		}
+		
+	}
+
+	public function checkWageList()
+	{
+		echo "Wage list of " . $this->getFullName() . ': <br>';
+		var_dump($this->wageList);
+		echo '<br>';
+	}
+}
+
 
 // ------------------------------------------
 		// TESTING
 
 //-------------------------------------------
 
-$human1 = new Human('Alexandr', 'Dobynda', 26);
+$employee1 = new Employee('Sidorov', 2500);
+$employee1->giveSalary('25-april-1992', 2000);
+$employee1->giveSalary('25-april-1993', 2200);
+$employee1->giveSalary('25-april-1994');
 
-$student1 = new Student('Tolik', 'Ivanov', 20);
+$employee1->checkWageList();
 
-$student1->setCourse(3);
-$student1->setType('ZAOCHN');
+
+
+$student1 = new Student('Alexandr', 'Dobynda', 26);
+$student1->setZaochnoe(3);
 $student1->giveMark(5);
 $student1->giveMark(2);
 $student1->giveMark(3);
 $student1->giveMark(4);
-
-
-// Почему работает? У родителя private \/
-$student1->age = 2;
-// ---------------------
-
-
 
 echo $student1->getFullName() . '<br>';
 echo $student1->age . '<br>';
@@ -100,5 +139,4 @@ $student1->getMarks(). '<br>';
 
 
 
-
- ?>
+?>
