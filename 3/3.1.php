@@ -2,13 +2,15 @@
 
 class Human
 {
-	private static $count = 0;
+	protected static $count = 0;
 	private $firstName;
 	private $lastName;
 	private $age; 
 
 	public function __construct ($firstName = '', $lastName = '', $age = '')
 	{
+		self::$count++;
+
 		$this->firstName = $firstName;
 		$this->lastName = $lastName;
 		$this->age = $age;
@@ -36,13 +38,17 @@ class Human
 	{
 		return $this->firstName . ' ' . $this->lastName;
 	}
-}
+
+	public function count()
+	{
+		echo 'Human count: ' . self::$count . '<br>';
+	}}
 /**
  * STUDENT
  */
 class Student extends Human
 {
-	private static $count = 0;
+	protected static $count = 0;
 
 	const TYPE_OCHN = 1;
 	const TYPE_ZAOCHN = 2;
@@ -51,6 +57,13 @@ class Student extends Human
 	private $course = 1;
 	private $marks = [];
 // ______________________________________
+
+	public function __construct ($firstName = '', $lastName = '', $age = '')
+	{
+		self::$count++;
+
+		parent::__construct($firstName, $lastName, $age);
+	}
 
 	public function setOchnoe($course = false) 
 	{
@@ -89,19 +102,28 @@ class Student extends Human
 
 		echo '<br><br>';
 	}
+
+	public function count()
+	{
+		echo 'Student count: ' . self::$count . '<br>';
+		echo 'Student count/all human: ' . self::$count . '/' . parent::$count  .  '<br>';
+	}
 }
 /**
  * EMPLOYEE
  */
 class Employee extends Human
 {	
-	private static $count = 0;
+	protected static $count = 0;
+	protected static $employeeCount = 0;
 
 	private $salary;
 	private $wageList = [];
 	
 	public function __construct($lastName, $salary = false)
 	{
+		self::$count++;
+
 		parent::__construct('', $lastName);
 		$this->salary = $salary;
 	}
@@ -138,18 +160,26 @@ class Employee extends Human
 	{
 		return $this->getFullName() . '. Salary: ' . $this->salary;
 	}
+
+	public function count()
+	{
+		echo 'Employee count: ' . self::$count . '<br>';
+		echo 'Employee count/all human: ' . self::$count . '/' . parent::$count  .  '<br>';
+	}
 }
 /**
  * Manager
  */
 class Manager extends Employee
 {
-	private static $count = 0;
+	protected static $count = 0;
 
 	private $listOfEmloyees = [];
 	
 	public function __construct( $lastName)
 	{
+		self::$count++;
+
 		parent::__construct($lastName);
 	}
 
@@ -177,12 +207,21 @@ class Manager extends Employee
 		echo  '<br>';
 	}
 
+	public function count()
+	{
+		echo 'Manager count: ' . self::$count . '<br>';
+		echo 'Manager count/all employee: ' . self::$count . '/' . parent::$count  .  '<br>';
+	}
+
 
 }
 // ------------------------------------------
 		// TESTING
 
 //-------------------------------------------
+
+$human1 = new Human('Petr', 'Borovskiy', 50);
+echo 'Human: ' . $human1->getFullName() . '<br>';
 
 $student1 = new Student('Alexandr', 'Dobynda', 26);
 $student1->setZaochnoe(2);
@@ -191,7 +230,7 @@ $student1->giveMark(2);
 $student1->giveMark(3);
 $student1->giveMark(4);
 
-echo $student1->getFullName() . '<br>';
+echo 'Student: ' . $student1->getFullName() . '<br>';
 echo 'age: ' . $student1->age . '<br>';
 echo $student1->getType() . '<br>';
 echo 'course: ' . $student1->getCourse(). '<br>';
@@ -229,10 +268,11 @@ $manager1->removeEmployee('Petrov');
 $manager1->checkEmployeesList();
 
 
-
-
-
-
+echo "Counters: <br>";
+$human1->count();
+$student1->count();
+$employee1->count();
+$manager1->count();
 
 
 ?>
