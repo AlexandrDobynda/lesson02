@@ -93,6 +93,7 @@ $student1->age = 2;
 
 
 echo $student1->getFullName() . '<br>';
+echo $student1->age . '<br>';
 echo $student1->getType() . '<br>';
 echo $student1->getCourse(). '<br>';
 $student1->getMarks(). '<br>';
