@@ -154,9 +154,9 @@ $student1->giveMark(3);
 $student1->giveMark(4);
 
 echo $student1->getFullName() . '<br>';
-echo $student1->age . '<br>';
+echo 'age: ' . $student1->age . '<br>';
 echo $student1->getType() . '<br>';
-echo $student1->getCourse(). '<br>';
+echo 'course: ' . $student1->getCourse(). '<br>';
 $student1->getMarks(). '<br>';
 
 
