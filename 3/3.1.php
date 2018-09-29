@@ -26,7 +26,7 @@ class Human
 	{
 		$this->age = $age;
 	}
-// ===========================
+	// ===========================
 	public function __get($name)
 	{	
 		return $this->$name;
@@ -81,11 +81,13 @@ class Student extends Human
 	public function getMarks()
 	{
 		echo "Marks of " . $this->getFullName() . ': <br>';
-		
+
 		foreach ($this->marks as $value) 
 		{
 			echo  $value . ', ';
 		}
+
+		echo '<br><br>';
 	}
 }
 /**
@@ -93,10 +95,12 @@ class Student extends Human
  */
 class Employee extends Human
 {	
+	private static $count = 0;
+
 	private $salary;
 	private $wageList = [];
 	
-	public function __construct($lastName, $salary)
+	public function __construct($lastName, $salary = false)
 	{
 		parent::__construct('', $lastName);
 		$this->salary = $salary;
@@ -127,27 +131,61 @@ class Employee extends Human
 		{
 			echo $key . ': ' . $value . ' money<br>';
 		}
+		echo '<br>';
+	}
+
+	public function __toString()
+	{
+		return $this->getFullName() . '. Salary: ' . $this->salary;
 	}
 }
+/**
+ * Manager
+ */
+class Manager extends Employee
+{
+	private static $count = 0;
+
+	private $listOfEmloyees = [];
+	
+	public function __construct( $lastName)
+	{
+		parent::__construct($lastName);
+	}
+
+	public function addEmployee($employeeId)
+	{
+
+		$this->listOfEmloyees[$employeeId->lastName] = $employeeId;
+	}
+
+	public function removeEmployee($lastName)
+	{
+		unset($this->listOfEmloyees[$lastName]);
+	}
 
 
+	public function checkEmployeesList()
+	{
+		echo "Employees list of  " . $this->getFullName() . ': <br>';
+
+		foreach ($this->listOfEmloyees as $key => $value) 
+		{
+			echo  $value . '<br>';
+		}
+
+		echo  '<br>';
+	}
+
+
+}
 // ------------------------------------------
 		// TESTING
 
 //-------------------------------------------
 
-$employee1 = new Employee('Sidorov', 2500);
-$employee1->setFirstName('Egor');
-$employee1->giveSalary('25-april-1992', 2000);
-$employee1->giveSalary('25-april-1993', 2200);
-$employee1->giveSalary('25-april-1994');
-
-$employee1->checkWageList();
-
-
-
 $student1 = new Student('Alexandr', 'Dobynda', 26);
-$student1->setZaochnoe(3);
+$student1->setZaochnoe(2);
 $student1->giveMark(5);
 $student1->giveMark(2);
 $student1->giveMark(3);
@@ -157,7 +195,43 @@ echo $student1->getFullName() . '<br>';
 echo 'age: ' . $student1->age . '<br>';
 echo $student1->getType() . '<br>';
 echo 'course: ' . $student1->getCourse(). '<br>';
-$student1->getMarks(). '<br>';
+$student1->getMarks();
+
+
+
+$employee1 = new Employee('Sidorov', 2500);
+$employee2 = new Employee('Petrov', 10000);
+$employee3 = new Employee('Elkin', 4444);
+
+$employee1->setFirstName('Egor');
+$employee1->giveSalary('25-april-1992', 2000);
+$employee1->giveSalary('25-april-1993', 2200);
+$employee1->giveSalary('25-april-1994');
+
+$employee2->giveSalary('25-april-1992', 3000);
+$employee2->giveSalary('25-april-1993', 9999);
+$employee2->giveSalary('25-april-1994');
+
+$employee1->checkWageList();
+$employee2->checkWageList();
+
+
+
+$manager1 = new Manager('Nikolenko');
+echo $manager1->getFullName()  . '<br>';
+$manager1->addEmployee($employee1);
+$manager1->addEmployee($employee2);
+$manager1->addEmployee($employee3);
+
+
+$manager1->checkEmployeesList();
+$manager1->removeEmployee('Petrov');
+$manager1->checkEmployeesList();
+
+
+
+
+
 
 
 
