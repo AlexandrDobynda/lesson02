@@ -117,8 +117,11 @@ class Employee extends Human
 	public function checkWageList()
 	{
 		echo "Wage list of " . $this->getFullName() . ': <br>';
-		var_dump($this->wageList);
-		echo '<br>';
+
+		foreach ($this->wageList as $key => $value) 
+		{
+			echo $key . ': ' . $value . ' money<br>';
+		}
 	}
 }
 
