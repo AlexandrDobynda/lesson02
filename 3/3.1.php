@@ -279,4 +279,44 @@ $employee1->count();
 $manager1->count();
 
 
+
+// Что в итоге выдает:
+
+// Human: Petr Borovskiy
+// Student: Alexandr Dobynda
+// age: 26
+// Zaochnoe
+// course: 2
+// Marks of Alexandr Dobynda: 
+// 5, 2, 3, 4, 
+
+// Wage list of Egor Sidorov: 
+// 25-april-1992: 2000 money
+// 25-april-1993: 2200 money
+// 25-april-1994: 2500 money
+
+// Wage list of Petrov: 
+// 25-april-1992: 3000 money
+// 25-april-1993: 9999 money
+// 25-april-1994: 10000 money
+
+// Nikolenko
+// Employees list of Nikolenko: 
+// Egor Sidorov. Salary: 2500
+// Petrov. Salary: 10000
+// Elkin. Salary: 4444
+
+// Employees list of Nikolenko: 
+// Egor Sidorov. Salary: 2500
+// Elkin. Salary: 4444
+
+// Counters: 
+// Human count: 6
+// Student count: 1
+// Student count/all human: 1/6
+// Employee count: 3
+// Employee count/all human: 3/6
+// Employee count/all employee: 3/4
+// Manager count: 1
+// Manager count/all employee: 1/4
 ?>
