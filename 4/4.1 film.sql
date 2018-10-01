@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 01 2018 г., 01:56
+-- Время создания: Окт 01 2018 г., 13:57
 -- Версия сервера: 5.6.41
 -- Версия PHP: 5.5.38
 
@@ -31,37 +31,38 @@ SET time_zone = "+00:00";
 CREATE TABLE `films` (
   `film_id` int(10) NOT NULL,
   `film_name` varchar(50) NOT NULL,
-  `producer_id` int(10) NOT NULL
+  `producer_id` int(10) NOT NULL,
+  `year` year(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `films`
 --
 
-INSERT INTO `films` (`film_id`, `film_name`, `producer_id`) VALUES
-(1, 'Назад в будущее', 5),
-(2, 'Бегущий по лезвию 2049', 2),
-(3, 'Стражи галактики', 4),
-(4, 'Оно', 2),
-(5, 'Остров проклятых', 3),
-(6, 'Властелин колец: Братство кольца', 1);
+INSERT INTO `films` (`film_id`, `film_name`, `producer_id`, `year`) VALUES
+(1, 'Назад в будущее', 5, 1985),
+(2, 'Бегущий по лезвию 2049', 2, 2017),
+(3, 'Стражи галактики', 4, 2014),
+(4, 'Оно', 2, 2017),
+(5, 'Остров проклятых', 3, 2010),
+(6, 'Властелин колец: Братство кольца', 1, 2001);
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `films-genres`
+-- Структура таблицы `film_gener`
 --
 
-CREATE TABLE `films-genres` (
+CREATE TABLE `film_gener` (
   `film_id` int(10) NOT NULL,
   `genre_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `films-genres`
+-- Дамп данных таблицы `film_gener`
 --
 
-INSERT INTO `films-genres` (`film_id`, `genre_id`) VALUES
+INSERT INTO `film_gener` (`film_id`, `genre_id`) VALUES
 (1, 7),
 (1, 9),
 (1, 3),
@@ -143,9 +144,9 @@ ALTER TABLE `films`
   ADD KEY `producer_id` (`producer_id`);
 
 --
--- Индексы таблицы `films-genres`
+-- Индексы таблицы `film_gener`
 --
-ALTER TABLE `films-genres`
+ALTER TABLE `film_gener`
   ADD KEY `film_id` (`film_id`),
   ADD KEY `genre_id` (`genre_id`);
 
@@ -192,20 +193,14 @@ ALTER TABLE `producers`
 -- Ограничения внешнего ключа таблицы `films`
 --
 ALTER TABLE `films`
-  ADD CONSTRAINT `films_ibfk_1` FOREIGN KEY (`film_id`) REFERENCES `films-genres` (`film_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `films_ibfk_2` FOREIGN KEY (`producer_id`) REFERENCES `producers` (`producer_id`) ON UPDATE CASCADE;
-
---
--- Ограничения внешнего ключа таблицы `films-genres`
---
-ALTER TABLE `films-genres`
-  ADD CONSTRAINT `films-genres_ibfk_1` FOREIGN KEY (`film_id`) REFERENCES `films` (`film_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `films_ibfk_2` FOREIGN KEY (`producer_id`) REFERENCES `producers` (`producer_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `films_ibfk_3` FOREIGN KEY (`film_id`) REFERENCES `film_gener` (`film_id`);
 
 --
 -- Ограничения внешнего ключа таблицы `genres`
 --
 ALTER TABLE `genres`
-  ADD CONSTRAINT `genres_ibfk_1` FOREIGN KEY (`genre_id`) REFERENCES `films-genres` (`genre_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `genres_ibfk_1` FOREIGN KEY (`genre_id`) REFERENCES `film_gener` (`genre_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
